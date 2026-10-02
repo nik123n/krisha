@@ -26,9 +26,10 @@ function chrome(){
 }
 /* Music: starts only when clicked (browsers block autoplay) */
 function music(){
-  const a=new Audio('assets/music/birthday.mp3'),b=$('.music');a.loop=true;
-  const set=on=>{b.classList.toggle('on',on);b.textContent=on?'♪ Playing':'♪ Music';try{localStorage.setItem('krishaMusic',on?1:0)}catch(e){}};
-  const start=()=>a.play().then(()=>set(true)).catch(()=>{});
+  const song='assets/music/videoplayback.m4a';
+  const a=new Audio(song),b=$('.music');a.loop=true;
+  const set=on=>{b.classList.toggle('on',on);b.textContent=on?'♪ Playing':'♪ Music';try{localStorage.setItem('krishaMusic',on?1:0)}catch(e){};};
+  const start=()=>a.play().then(()=>set(true)).catch(()=>{set(false);});
   b.onclick=()=>a.paused?start():(a.pause(),set(false));
   let saved=false;try{saved=localStorage.getItem('krishaMusic')==='1'}catch(e){}
   if(saved)addEventListener('pointerdown',e=>{if(!e.target.closest('.music'))start()},{once:true});
